@@ -23,7 +23,7 @@ func main() {
 	fmt.Printf("Server successfully listening on: %s", address)
 
 	for {
-		conn, err = listener.Accept()
+		conn, err := listener.Accept()
 		if err != nil {
 			fmt.Println("Error in accepting Connection from Client.")
 			panic(err)
