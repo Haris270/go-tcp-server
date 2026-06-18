@@ -20,7 +20,7 @@ func main() {
 
 	defer listener.Close() // close the listener when program exits main()
 
-	fmt.Printf("Server successfully listening on: %s", address)
+	fmt.Printf("Server successfully listening on: %s\n", address)
 
 	for {
 		conn, err := listener.Accept()
