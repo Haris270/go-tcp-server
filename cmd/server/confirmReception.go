@@ -17,7 +17,7 @@ func confirmReception(conn net.Conn) {
 			fmt.Println("Error encountered during reading input")
 			return
 		}
-		fmt.Printf("Client: %s", clientMessage)
+		fmt.Printf("Client: %s\n", clientMessage)
 		clientMessage = strings.TrimSpace(clientMessage)
 
 		confirmationMsg := fmt.Sprintf("Confirmed: You sent %s\n", clientMessage)
