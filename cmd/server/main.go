@@ -22,12 +22,15 @@ func main() {
 
 	fmt.Printf("Server successfully listening on: %s\n", address)
 
+	allConn := make(map[string]net.Conn)
+
 	for {
 		conn, err := listener.Accept()
 		if err != nil {
 			fmt.Println("Error in accepting Connection from Client.")
 			panic(err)
 		}
-		go confirmReception(conn)
+		allConn[conn.RemoteAddr().String()] = conn
+		go confirmReception(conn, allConn)
 	}
 }
