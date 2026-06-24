@@ -6,7 +6,6 @@ async def send_message(writer: asyncio.StreamWriter):
     while True:
         # offload getting user input to a background thread so event loop is not blocked (e.g. when we use input())
         message = await asyncio.to_thread(input, ">> ")
-        print("Sending message...")
         writer.write(f"{message}\n".encode())
         await writer.drain()
 
