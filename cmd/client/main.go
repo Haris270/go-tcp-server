@@ -34,7 +34,7 @@ func main() {
 				os.Exit(0) //client exits if server disconnected
 			}
 
-			fmt.Printf("Server: %s\n", serverResponse)
+			fmt.Println(serverResponse)
 		}
 	}()
 
