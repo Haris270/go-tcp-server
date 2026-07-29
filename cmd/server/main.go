@@ -8,6 +8,7 @@ import (
 
 type Client struct {
 	Connection net.Conn
+	ID         string
 	Name       string
 }
 
@@ -29,7 +30,8 @@ func main() {
 
 	fmt.Printf("Server successfully listening on: %s\n", address)
 
-	allConn := make(map[string]Client) // map to store all connected clients
+	//allConn := make(map[string]Client) // map to store all connected clients
+	allConn := NewClientRegistry()
 
 	for {
 		conn, err := listener.Accept()
