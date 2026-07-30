@@ -7,16 +7,16 @@ package main
 	If it fails to write, it returns the error, nil otherwise
 */
 
-func (c *ClientRegistry) broadcast(msg string) []Client {
+func (c *ClientRegistry) broadcast(msg string) []string {
 
 	allClients := c.getAllClients()
-	var failedWrites []Client
+	var failedWrites []string
 	for _, client := range allClients {
 
 		//client.Connection.SetWriteDeadline(time.Now().Add(5 * time.Second))
 		_, err := client.Connection.Write([]byte(msg))
 		if err != nil {
-			failedWrites = append(failedWrites, client)
+			failedWrites = append(failedWrites, client.Connection.RemoteAddr().String())
 		}
 	}
 
