@@ -39,14 +39,18 @@ func confirmReception(conn net.Conn, connMap *ClientRegistry) { //map[string]Cli
 	join_notif := fmt.Sprintf("%s has joined the chat room!\n", clientName)
 	connMap.broadcast(join_notif)
 
+	defer func() {
+		connMap.removeClient(conn.RemoteAddr().String())
+	}()
+
 	for {
 
 		clientMessage, err := msg_receiver(conn)
 		if err != nil {
 			fmt.Println("Client Disconnected")
 			//delete(connMap, conn.RemoteAddr().String())
-			connMap.removeClient(conn, conn.RemoteAddr().String())
-			connMap.broadcast(fmt.Sprintf("%s has left the chat\n", clientName))
+			// connMap.removeClient(conn, conn.RemoteAddr().String())
+			//connMap.broadcast(fmt.Sprintf("%s has left the chat\n", clientName))
 			return
 		}
 
@@ -59,7 +63,7 @@ func confirmReception(conn net.Conn, connMap *ClientRegistry) { //map[string]Cli
 		if len(failed_clients) != 0 {
 
 			for _, client := range failed_clients {
-				connMap.removeClient(client.Connection, client.Name)
+				connMap.removeClient(client)
 			}
 
 		}
