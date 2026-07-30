@@ -24,9 +24,14 @@ async def receive_message(reader: asyncio.StreamReader):
 
 async def main():
     reader, writer = await asyncio.open_connection("localhost", 8080)
-    async with asyncio.TaskGroup() as tg:
-        task1 = tg.create_task(receive_message(reader))
-        task2 = tg.create_task(send_message(writer))
+    try:
+        async with asyncio.TaskGroup() as tg:
+            task1 = tg.create_task(receive_message(reader))
+            task2 = tg.create_task(send_message(writer))
+    
+    finally:
+        writer.close()
+        await writer.wait_closed()
 
     
 
