@@ -8,7 +8,6 @@ import (
 
 type Client struct {
 	Connection net.Conn
-	ID         string
 	Name       string
 }
 
@@ -30,6 +29,7 @@ func main() {
 
 	fmt.Printf("Server successfully listening on: %s\n", address)
 
+	go shutdownServer(listener)
 	//allConn := make(map[string]Client) // map to store all connected clients
 	allConn := NewClientRegistry()
 
@@ -37,10 +37,14 @@ func main() {
 		conn, err := listener.Accept()
 		if err != nil {
 			fmt.Println("Error in accepting Connection from Client.")
-			panic(err)
+			break
+			//panic(err)
 		}
 
 		//creates a goroutine calling the client handler for each client
 		go confirmReception(conn, allConn)
 	}
+
+	allConn.broadcast("Server is shutting down. Goodbye!\n")
+
 }
