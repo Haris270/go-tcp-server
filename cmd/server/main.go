@@ -42,7 +42,7 @@ func main() {
 		}
 
 		//creates a goroutine calling the client handler for each client
-		go confirmReception(conn, allConn)
+		go handleClient(conn, allConn)
 	}
 
 	allConn.broadcast("Server is shutting down. Goodbye!\n")

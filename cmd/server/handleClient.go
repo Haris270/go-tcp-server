@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func confirmReception(conn net.Conn, connMap *ClientRegistry) { //map[string]Client) {
+func handleClient(conn net.Conn, connMap *ClientRegistry) { //map[string]Client) {
 	defer conn.Close()
 
 	//---------- initiating the connection -------------\\
